@@ -6,7 +6,6 @@ import com.codecool.byteme.pages.ProfilePage;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
 import org.junit.jupiter.params.provider.EmptySource;
@@ -19,7 +18,7 @@ public class TestLogin {
     private FeedPage feedPage;
     private ProfilePage profilePage;
 
-   private boolean shouldLogOut;
+    private boolean shouldLogOut;
 
     @BeforeEach
     void init() {
@@ -62,7 +61,6 @@ public class TestLogin {
         loginPage.login(email);
         assertEquals("No email given", loginPage.getAlertMessage());
     }
-
 
     @ParameterizedTest
     @DisplayName("Login non registered users")
