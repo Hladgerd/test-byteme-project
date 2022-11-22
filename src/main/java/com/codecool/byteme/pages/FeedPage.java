@@ -26,4 +26,8 @@ public class FeedPage extends BasePage {
         profilePageLink.click();
         wait.until(ExpectedConditions.visibilityOf(profilePage.fullName));
     }
+
+    public void logOutCurrentUser() {
+        logoutButton.click();
+    }
 }
