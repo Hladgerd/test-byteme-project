@@ -9,8 +9,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class TestLogin {
     LoginPage loginPage;
@@ -38,5 +37,13 @@ public class TestLogin {
 
         feedPage.openProfilePage();
         assertEquals(fullName, profilePage.getFullName());
+    }
+
+    @ParameterizedTest
+    @DisplayName("Login registered user with wrong credentials")
+    @CsvFileSource(resources = "/userCredentialsWrong.csv", numLinesToSkip = 1, delimiter = ';')
+    public void loginWithWrongCredentials(String description, String email) {
+        loginPage.login(email);
+        assertFalse(feedPage.isLogoutButtonVisible());
     }
 }
