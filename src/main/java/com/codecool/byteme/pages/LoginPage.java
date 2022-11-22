@@ -12,15 +12,14 @@ public class LoginPage extends BasePage {
     @FindBy(xpath = "//*[@id=\"root\"]/div/form/button")
     WebElement loginButton;
 
-
-    public void login(String email){
+    public void login(String email) {
         webDriver.get(baseUrl);
         wait.until(ExpectedConditions.visibilityOf(userEmail));
         this.userEmail.sendKeys(email);
         this.loginButton.click();
     }
 
-    public void successfulLogin(){
+    public void successfulLogin() {
         webDriver.get(baseUrl);
         wait.until(ExpectedConditions.visibilityOf(userEmail));
         String email = Util.readProperty("email");
