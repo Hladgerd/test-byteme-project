@@ -15,19 +15,23 @@ import org.junit.jupiter.params.provider.ValueSource;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TestLogin {
-    LoginPage loginPage;
-    FeedPage feedPage;
-    ProfilePage profilePage;
+    private LoginPage loginPage;
+    private FeedPage feedPage;
+    private ProfilePage profilePage;
+
+   private boolean shouldLogOut;
 
     @BeforeEach
     void init() {
         loginPage = new LoginPage();
         feedPage = new FeedPage();
         profilePage = new ProfilePage();
+        shouldLogOut = false;
     }
 
     @AfterEach
     void close() {
+        if (shouldLogOut) feedPage.logOutCurrentUser();
         loginPage.closeWebDriver();
     }
 
@@ -35,6 +39,7 @@ public class TestLogin {
     @DisplayName("Login registered user with correct credentials")
     @CsvFileSource(resources = "/userCredentials.csv", numLinesToSkip = 1, delimiter = ';')
     public void loginSuccessfully(String description, String email, String fullName) {
+        shouldLogOut = true;
         loginPage.login(email);
         assertTrue(feedPage.isLogoutButtonVisible());
 
