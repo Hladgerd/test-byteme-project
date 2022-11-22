@@ -11,25 +11,20 @@ import java.time.Duration;
 public class WebdriverUtil {
 
     private final boolean headless = Boolean.parseBoolean(Util.readProperty("headless"));
-
-    private final int SECONDS = 15;
-
+    private final int seconds = 15;
     private WebDriver webDriver;
-
-    private WebDriverWait webDriverWait;
-
+    private final WebDriverWait webDriverWait;
     private static WebdriverUtil INSTANCE;
 
-    private WebdriverUtil(){
+    private WebdriverUtil() {
         webDriver = setupWebdriver();
-        webDriverWait = new WebDriverWait(webDriver, Duration.ofSeconds(SECONDS));
+        webDriverWait = new WebDriverWait(webDriver, Duration.ofSeconds(seconds));
     }
 
     public static WebdriverUtil getInstance() {
-        if(INSTANCE == null) {
+        if (INSTANCE == null) {
             INSTANCE = new WebdriverUtil();
         }
-
         return INSTANCE;
     }
 
@@ -54,13 +49,11 @@ public class WebdriverUtil {
             webDriver.manage().window().maximize();
         }
         webDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
-//        webDriver.get(BasePage.LOGIN_URL);
         return webDriver;
     }
 
-    public void shutDown(){
+    public void shutDown() {
         webDriver.quit();
         INSTANCE = null;
     }
-
 }
