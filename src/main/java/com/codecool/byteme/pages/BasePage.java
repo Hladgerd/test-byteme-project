@@ -11,24 +11,14 @@ public abstract class BasePage {
 
     protected WebDriver webDriver;
     protected WebDriverWait wait;
-
-    protected String baseUrl = Util.readProperty("baseUrl");
     private final WebdriverUtil webdriverUtil;
-
+    protected String baseUrl = Util.readProperty("baseUrl");
 
     public BasePage() {
         webdriverUtil = WebdriverUtil.getInstance();
         this.webDriver = webdriverUtil.getWebDriver();
         wait = initWebdriverWait();
         PageFactory.initElements(webDriver, this);
-    }
-
-    public WebDriver getWebDriver() {
-        return webDriver;
-    }
-
-    public WebDriverWait getWait() {
-        return wait;
     }
 
     private WebDriverWait initWebdriverWait() {
