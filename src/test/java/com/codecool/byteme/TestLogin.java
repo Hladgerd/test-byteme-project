@@ -9,6 +9,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
+import org.junit.jupiter.params.provider.EmptySource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -49,10 +50,11 @@ public class TestLogin {
         assertFalse(feedPage.isLogoutButtonVisible());
     }
 
-    @Test
+    @ParameterizedTest
     @DisplayName("Login with empty credentials")
-    public void loginWithEmptyCredentials() {
-        loginPage.login("");
+    @EmptySource
+    public void loginWithEmptyCredentials(String email) {
+        loginPage.login(email);
         assertEquals("No email given", loginPage.getAlertMessage());
     }
 
