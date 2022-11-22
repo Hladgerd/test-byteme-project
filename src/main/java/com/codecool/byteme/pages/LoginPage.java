@@ -1,8 +1,7 @@
 package com.codecool.byteme.pages;
 
 import com.codecool.byteme.Util;
-import org.openqa.selenium.Alert;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
@@ -35,4 +34,16 @@ public class LoginPage extends BasePage {
         return alert.getText();
     }
 
+    public boolean isLoginButtonVisible() {
+        try {
+            wait.until(ExpectedConditions.visibilityOf(loginButton));
+            return true;
+        } catch (NoSuchElementException | TimeoutException e) {
+            return false;
+        }
+    }
+
+    public void reOpenLoginPage() {
+        webDriver.get(baseUrl);
+    }
 }
