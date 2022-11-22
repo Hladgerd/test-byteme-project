@@ -1,6 +1,7 @@
 package com.codecool.byteme.pages;
 
 import com.codecool.byteme.Util;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -11,6 +12,7 @@ public class LoginPage extends BasePage {
 
     @FindBy(xpath = "//*[@id=\"root\"]/div/form/button")
     WebElement loginButton;
+
 
     public void login(String email){
         webDriver.get(baseUrl);
@@ -26,4 +28,11 @@ public class LoginPage extends BasePage {
         this.userEmail.sendKeys(email);
         this.loginButton.click();
     }
+
+    public String getAlertMessage() {
+        wait.until(ExpectedConditions.alertIsPresent());
+        Alert alert = webDriver.switchTo().alert();
+        return alert.getText();
+    }
+
 }
