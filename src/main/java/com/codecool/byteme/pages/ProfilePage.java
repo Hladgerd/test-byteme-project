@@ -10,7 +10,7 @@ public class ProfilePage extends BasePage {
 
     public String getFullName(){
         String[] result = fullName.getText().split(" ",2);
-        return result[1];
+        return result.length > 1 ? result[1] : "";
     }
 
 }
