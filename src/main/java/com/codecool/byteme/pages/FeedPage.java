@@ -22,7 +22,7 @@ public class FeedPage extends BasePage {
         }
     }
 
-    public void openProfilePage(){
+    public void openProfilePage() {
         profilePageLink.click();
         wait.until(ExpectedConditions.visibilityOf(profilePage.fullName));
     }
