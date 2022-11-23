@@ -22,7 +22,6 @@ public class LogoutSteps {
 
     @Given("The user is logged in to Byte.me")
     public void login() {
-        loginPage.openLoginPage();
         loginPage.login();
     }
 
@@ -33,7 +32,7 @@ public class LogoutSteps {
 
     @Then("Login page is visible")
     public void loginPageIsVisible() {
-        loginPage.reOpenLoginPage();
+        loginPage.navigateToProfilePage();
         assertTrue(loginPage.isLoginButtonVisible());
     }
 
