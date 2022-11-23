@@ -17,6 +17,10 @@ public class LoginPage extends BasePage {
         wait.until(ExpectedConditions.visibilityOf(userEmail));
     }
 
+    public void openFeedPage(){
+        webDriver.get(baseUrl + "feed");
+    }
+
     public void login(String email) {
         this.userEmail.sendKeys(email);
         this.loginButton.click();
