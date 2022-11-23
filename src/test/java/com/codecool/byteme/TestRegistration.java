@@ -39,11 +39,9 @@ public class TestRegistration {
     @ParameterizedTest
     @DisplayName("Register user with correct credentials")
     @CsvFileSource(resources = "/newUserCredentials.csv", numLinesToSkip = 1, delimiter = ';')
-    public void registerSuccessfully(String description,String fullName, String age, String password){
-        registrationPage.openRegistrationForm();
-        String email =  Util.generateRandomString() + "@byte.me";
-        registrationPage.fillOutForm(fullName, email, age, password);
-        registrationPage.submitRegistration();
+    public void registerSuccessfully(String description, String fullName, String age, String password) {
+        String email = Util.generateRandomString() + "@byte.me";
+        registrationPage.registerUser(fullName, email, age, password);
         loginPage.login(email, password);
         feedPage.openProfilePage();
 
@@ -54,30 +52,33 @@ public class TestRegistration {
     @ParameterizedTest
     @DisplayName("Try to register with empty credentials")
     @EmptySource
-    public void registerWithEmptyCredentials(String fullName){
-        registrationPage.openRegistrationForm();
-        registrationPage.fillOutForm_(fullName);
+    public void registerWithEmptyCredentials(String fullName) {
+        loginPage.openRegistrationForm();
+        registrationPage.fillOutName(fullName);
         registrationPage.submitRegistration();
         assertEquals(registrationPage.getRegistrationUrl(), registrationPage.getCurrentUrl());
     }
 
-    //TODO: implement more test for already existing user
-
-
     @ParameterizedTest
-    @DisplayName("Reregister user with existing credentials")
+    @DisplayName("Register user with existing credentials")
     @CsvFileSource(resources = "/newUserCredentials.csv", numLinesToSkip = 1, delimiter = ';')
-    public void registerWithExistingCredentials(String description,String fullName,  String email, String age, String password) {
-        registrationPage.openRegistrationForm();
-        email =  Util.generateRandomString() + "@byte.me";
-        registrationPage.fillOutForm(fullName, email, age, password);
-        registrationPage.submitRegistration();
-        registrationPage.openRegistrationForm();
-        registrationPage.fillOutForm(fullName, email, age, password);
-        registrationPage.submitRegistration();
-        loginPage.login(email, password);
-        feedPage.openProfilePage();
-        assertEquals(fullName, profilePage.getFullName());
+    public void registerWithExistingCredentials(String description, String fullName, String age, String password) {
+        String email = Util.generateRandomString() + "@byte.me";
+        registrationPage.registerUser(fullName, email, age, password);
+        registrationPage.registerUser(fullName, email, age, password);
+        String actualMessage = "This email is already assigned to one of our users, please register with an other email address!";
+        assertEquals(actualMessage, loginPage.getAlertMessage());
     }
 
+    @ParameterizedTest
+    @DisplayName("Register user with age in non-integer format")
+    @CsvFileSource(resources = "/newUserCredentials.csv", numLinesToSkip = 1, delimiter = ';')
+    public void registerWithNonIntegerAge(String description, String fullName, String age, String password) {
+        String email = Util.generateRandomString() + "@byte.me";
+        String nonIntegerAge = "age";
+        registrationPage.registerUser(fullName, email, nonIntegerAge, password);
+        loginPage.login(email, password);
+
+        assertTrue(feedPage.isLogoutButtonVisible());
+    }
 }
