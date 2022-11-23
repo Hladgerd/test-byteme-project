@@ -30,7 +30,7 @@ public class TestLogOut {
     public void logOutSuccessfully() {
         loginPage.login(Util.readProperty("email"),  "" ); // TODO: add password
         feedPage.logOutCurrentUser();
-        loginPage.reOpenLoginPage();
+        loginPage.navigateToProfilePage();
         assertTrue(loginPage.isLoginButtonVisible());
     }
 

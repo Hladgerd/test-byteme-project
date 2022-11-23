@@ -59,4 +59,7 @@ public class LoginPage extends BasePage {
     public void openRegistrationForm(){
     registrationButton.click(); }
 
+    public void navigateToProfilePage() {
+        webDriver.get(baseUrl + "user/2");
+    }
 }
