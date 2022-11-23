@@ -5,7 +5,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class RegistrationPage extends BasePage {
-    private LoginPage loginPage = new LoginPage();
+    private final LoginPage loginPage = new LoginPage();
 
     @FindBy(id = "name-input-registration")
     WebElement registerName;
@@ -51,7 +51,4 @@ public class RegistrationPage extends BasePage {
     public String getCurrentUrl() {
         return webDriver.getCurrentUrl();
     }
-
-
-
 }
