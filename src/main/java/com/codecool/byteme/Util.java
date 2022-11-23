@@ -24,7 +24,7 @@ public class Util {
         return Objects.requireNonNull(readConfig()).getProperty(value);
     }
 
-    public static String generateRandomSummary() {
+    public static String generateRandomString() {
         return UUID.randomUUID().toString();
     }
 }
