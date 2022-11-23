@@ -89,7 +89,7 @@ public class FeedPage extends BasePage {
         webDriver.findElement(By.className("delete-icon")).click();
     }
 
-    public void addNameToSearchField(String name) {
+    public void searchFor(String name) {
         searchField.sendKeys(name);
     }
 

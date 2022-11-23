@@ -12,11 +12,9 @@ import org.junit.jupiter.params.provider.ValueSource;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestSearch {
-
     LoginPage loginPage;
     FeedPage feedPage;
     ProfilePage profilePage;
-
 
     @BeforeEach
     void init() {
@@ -35,9 +33,8 @@ public class TestSearch {
     @DisplayName("Search user")
     @ValueSource(strings = "Bacso Vanda")
     public void searchForUser(String name) {
-        feedPage.addNameToSearchField(name);
+        feedPage.searchFor(name);
         feedPage.selectTheFirstResult();
         assertEquals(name, profilePage.getFullName());
     }
-
 }
