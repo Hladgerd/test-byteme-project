@@ -1,34 +1,42 @@
 package com.codecool.byteme.pages;
 
 import com.codecool.byteme.Util;
-import org.openqa.selenium.*;
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.TimeoutException;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class LoginPage extends BasePage {
-    @FindBy(xpath = "//*[@id=\"root\"]/div/form/div/input")
+    private final String loginUrl = baseUrl + "login";
+    private final String registrationUrl = baseUrl + "registration";
+    private final String userProfileUrl = baseUrl + "user/2";
+
+    @FindBy(id = "email-input-login")
     WebElement userEmail;
 
-    @FindBy(xpath = "//*[@id=\"root\"]/div/form/button")
+    @FindBy(id = "password-input-login")
+    WebElement userPassword;
+
+    @FindBy(id = "byte-in-button")
     WebElement loginButton;
 
-    public void openLoginPage(){
-        webDriver.get(baseUrl);
+    public void login(String email, String password) {
+        webDriver.get(loginUrl);
         wait.until(ExpectedConditions.visibilityOf(userEmail));
-    }
-
-    public void openFeedPage(){
-        webDriver.get(baseUrl + "feed");
-    }
-
-    public void login(String email) {
         this.userEmail.sendKeys(email);
-        this.loginButton.click();
+        this.userPassword.sendKeys("Pass"); // TODO: use parameter
+        this.loginButton.submit();
     }
 
     public void login() {
         String email = Util.readProperty("email");
+        String password = Util.readProperty("password");
+        webDriver.get(loginUrl);
+        wait.until(ExpectedConditions.visibilityOf(userEmail));
         this.userEmail.sendKeys(email);
+        this.userPassword.sendKeys(password);
         this.loginButton.click();
     }
 
@@ -47,7 +55,11 @@ public class LoginPage extends BasePage {
         }
     }
 
-    public void reOpenLoginPage() {
-        webDriver.get(baseUrl);
+    public void openRegistrationForm() {
+        webDriver.get(registrationUrl);
+    }
+
+    public void navigateToProfilePage() {
+        webDriver.get(userProfileUrl);
     }
 }

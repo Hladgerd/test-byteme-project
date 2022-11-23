@@ -9,10 +9,10 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public abstract class BasePage {
 
+    protected String baseUrl = Util.readProperty("baseUrl");
     protected WebDriver webDriver;
     protected WebDriverWait wait;
     private final WebdriverUtil webdriverUtil;
-    protected String baseUrl = Util.readProperty("baseUrl");
 
     public BasePage() {
         webdriverUtil = WebdriverUtil.getInstance();

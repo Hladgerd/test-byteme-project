@@ -11,7 +11,7 @@ import java.time.Duration;
 public class WebdriverUtil {
 
     private final boolean headless = Boolean.parseBoolean(Util.readProperty("headless"));
-    private final int seconds = 15;
+    private final int seconds = 10;
     private WebDriver webDriver;
     private final WebDriverWait webDriverWait;
     private static WebdriverUtil INSTANCE;
@@ -25,6 +25,7 @@ public class WebdriverUtil {
         if (INSTANCE == null) {
             INSTANCE = new WebdriverUtil();
         }
+
         return INSTANCE;
     }
 
