@@ -22,11 +22,14 @@ public class LoginPage extends BasePage {
     @FindBy(id = "byte-in-button")
     WebElement loginButton;
 
-    public void login(String email, String password) {
+    public void openLoginPage() {
         webDriver.get(loginUrl);
         wait.until(ExpectedConditions.visibilityOf(userEmail));
+    }
+
+    public void login(String email, String password) {
         this.userEmail.sendKeys(email);
-        this.userPassword.sendKeys("Pass"); // TODO: use parameter
+        this.userPassword.sendKeys(password);
         this.loginButton.submit();
     }
 
