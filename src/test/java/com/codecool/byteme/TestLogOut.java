@@ -13,7 +13,6 @@ public class TestLogOut {
     private LoginPage loginPage;
     private FeedPage feedPage;
 
-
     @BeforeEach
     void init() {
         loginPage = new LoginPage();
@@ -28,10 +27,9 @@ public class TestLogOut {
     @Test
     @DisplayName("Logout successfully")
     public void logOutSuccessfully() {
-        loginPage.login(Util.readProperty("email"),  "" ); // TODO: add password
+        loginPage.login();
         feedPage.logOutCurrentUser();
         loginPage.navigateToProfilePage();
         assertTrue(loginPage.isLoginButtonVisible());
     }
-
 }
