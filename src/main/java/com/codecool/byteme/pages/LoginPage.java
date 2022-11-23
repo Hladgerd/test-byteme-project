@@ -6,6 +6,7 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class LoginPage extends BasePage {
@@ -27,7 +28,7 @@ public class LoginPage extends BasePage {
         wait.until(ExpectedConditions.visibilityOf(userEmail));
         this.userEmail.sendKeys(email);
         this.userPassword.sendKeys("Pass"); // TODO: use parameter
-        this.loginButton.click();
+        this.loginButton.submit();
     }
 
     public void successfulLogin() {
@@ -54,13 +55,9 @@ public class LoginPage extends BasePage {
             return false;
         }
     }
-
-    public void reOpenLoginPage() {
-        webDriver.get(baseUrl);
+    public void openRegistrationForm() {
+        webDriver.get(baseUrl + "registration");
     }
-
-    public void openRegistrationForm(){
-    registrationButton.click(); }
 
     public void navigateToProfilePage() {
         webDriver.get(baseUrl + "user/2");
