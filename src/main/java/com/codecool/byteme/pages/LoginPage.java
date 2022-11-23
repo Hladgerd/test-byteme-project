@@ -6,7 +6,6 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class LoginPage extends BasePage {
@@ -18,10 +17,6 @@ public class LoginPage extends BasePage {
 
     @FindBy(id = "byte-in-button")
     WebElement loginButton;
-
-    @FindBy(id = "register-button")
-    WebElement registrationButton;
-
 
     public void login(String email, String password) {
         webDriver.get(baseUrl + "login");
@@ -55,6 +50,7 @@ public class LoginPage extends BasePage {
             return false;
         }
     }
+
     public void openRegistrationForm() {
         webDriver.get(baseUrl + "registration");
     }
