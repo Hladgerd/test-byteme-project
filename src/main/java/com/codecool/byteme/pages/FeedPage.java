@@ -8,7 +8,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class FeedPage extends BasePage {
-    ProfilePage profilePage = new ProfilePage();
+    private final ProfilePage profilePage = new ProfilePage();
 
     @FindBy(id = "logout")
     WebElement logoutButton;
@@ -47,28 +47,32 @@ public class FeedPage extends BasePage {
         logoutButton.click();
     }
 
-    public void fillTitle(String title) {
-        postTitle.sendKeys(title);
-    }
-
-    public void fillBody(String body) {
-        postBody.sendKeys(body);
-    }
-
-    public void savePost() {
-        postButton.click();
+    public void openFeeds() {
+        wait.until(ExpectedConditions.visibilityOf(postTitle));
     }
 
     public void createNewPost(String title, String body) {
-        fillTitle(title);
-        fillBody(body);
-        savePost();
+        int numberOfPosts = (webDriver.findElements(By.className("post-card"))).size();
+        postTitle.sendKeys(title);
+        postBody.sendKeys(body);
+        postButton.click();
+        wait.until(ExpectedConditions.numberOfElementsToBeMoreThan(By.className("post-card"), numberOfPosts));
+    }
+
+    private WebElement findNewTitle(String title) {
+        WebElement titleElement = webDriver.findElement(By.className("post-title"));
+        wait.until(ExpectedConditions.textToBePresentInElement(titleElement, title));
+        return titleElement;
+    }
+
+    private WebElement findNewBody(String body) {
+        WebElement bodyElement = webDriver.findElement(By.className("post-body"));
+        wait.until(ExpectedConditions.textToBePresentInElement(bodyElement, body));
+        return bodyElement;
     }
 
     public String getNewlyCreatedPostTitle(String title) {
-        WebElement titleElement = webDriver.findElement(By.className("post-title"));
-        wait.until(ExpectedConditions.textToBePresentInElement(titleElement, title));
-        return titleElement.getText();
+        return findNewTitle(title).getText();
     }
 
     public String getLatestPostTitle() {
@@ -76,16 +80,15 @@ public class FeedPage extends BasePage {
     }
 
     public String getNewlyCreatedPostBody(String body) {
-        WebElement bodyElement = webDriver.findElement(By.className("post-body"));
-        wait.until(ExpectedConditions.textToBePresentInElement(bodyElement, body));
-        return bodyElement.getText();
+        return findNewBody(body).getText();
     }
 
     public String getLatestPostBody() {
         return webDriver.findElement(By.className("post-body")).getText();
     }
 
-    public void deleteNewPost() {
+    public void deleteNewPost(String title) {
+//        findNewTitle(title);
         webDriver.findElement(By.className("delete-icon")).click();
     }
 
