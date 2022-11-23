@@ -41,6 +41,7 @@ public class FeedPage extends BasePage {
     }
 
     public void openProfilePage() {
+        wait.until(ExpectedConditions.visibilityOf(profilePageLink));
         profilePageLink.click();
         wait.until(ExpectedConditions.visibilityOf(profilePage.fullName));
     }

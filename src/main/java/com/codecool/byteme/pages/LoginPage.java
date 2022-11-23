@@ -6,17 +6,26 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class LoginPage extends BasePage {
-    @FindBy(xpath = "//*[@id=\"root\"]/div/form/div/input")
+    @FindBy(id = "email-input-login")
     WebElement userEmail;
 
-    @FindBy(xpath = "//*[@id=\"root\"]/div/form/button")
+    @FindBy(id = "password-input-login")
+    WebElement userPassword;
+
+    @FindBy(id = "byte-in-button")
     WebElement loginButton;
 
+    @FindBy(id = "register-button")
+    WebElement registrationButton;
 
-    public void login(String email){
-        webDriver.get(baseUrl);
+
+
+
+    public void login(String email, String password){
+        webDriver.get(baseUrl + "login");
         wait.until(ExpectedConditions.visibilityOf(userEmail));
         this.userEmail.sendKeys(email);
+        this.userPassword.sendKeys("Pass"); // TODO: use parameter
         this.loginButton.click();
     }
 
@@ -46,4 +55,8 @@ public class LoginPage extends BasePage {
     public void reOpenLoginPage() {
         webDriver.get(baseUrl);
     }
+
+    public void openRegistrationForm(){
+    registrationButton.click(); }
+
 }
