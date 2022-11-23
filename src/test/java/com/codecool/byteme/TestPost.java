@@ -19,7 +19,7 @@ public class TestPost {
     void init() {
         loginPage = new LoginPage();
         feedPage = new FeedPage();
-        loginPage.successfulLogin();
+        loginPage.login();
         isdeletable = false;
     }
 

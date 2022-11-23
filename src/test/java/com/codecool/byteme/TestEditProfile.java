@@ -6,11 +6,8 @@ import com.codecool.byteme.pages.ProfilePage;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-
-import javax.security.auth.login.LoginContext;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -25,7 +22,7 @@ public class TestEditProfile {
         loginPage = new LoginPage();
         feedPage = new FeedPage();
         profilePage = new ProfilePage();
-        loginPage.successfulLogin();
+        loginPage.login();
     }
 
     @AfterEach

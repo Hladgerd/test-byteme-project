@@ -23,7 +23,7 @@ public class TestSearch {
         loginPage = new LoginPage();
         profilePage = new ProfilePage();
         feedPage = new FeedPage();
-        loginPage.successfulLogin();
+        loginPage.login();
     }
 
     @AfterEach
