@@ -40,8 +40,7 @@ public class TestRegistration {
     @DisplayName("Register user with correct credentials")
     @CsvFileSource(resources = "/newUserCredentials.csv", numLinesToSkip = 1, delimiter = ';')
     public void registerSuccessfully(String description,String fullName, String age, String password){
-        loginPage.reOpenLoginPage();
-        loginPage.openRegistrationForm();
+        registrationPage.openRegistrationForm();
         String email =  Util.generateRandomString() + "@byte.me";
         registrationPage.fillOutForm(fullName, email, age, password);
         registrationPage.submitRegistration();
@@ -53,18 +52,32 @@ public class TestRegistration {
 
 
     @ParameterizedTest
-    @DisplayName("Register with empty credentials")
+    @DisplayName("Try to register with empty credentials")
     @EmptySource
-    public void loginSuccessfully(String email) {
-        shouldLogOut = true;
-        loginPage.login(email, "" ); // TODO: add password
-        assertTrue(feedPage.isLogoutButtonVisible());
-
-        feedPage.openProfilePage();
-
+    public void registerWithEmptyCredentials(String fullName){
+        registrationPage.openRegistrationForm();
+        registrationPage.fillOutForm_(fullName);
+        registrationPage.submitRegistration();
+        assertEquals(registrationPage.getRegistrationUrl(), registrationPage.getCurrentUrl());
     }
 
     //TODO: implement more test for already existing user
 
+
+    @ParameterizedTest
+    @DisplayName("Reregister user with existing credentials")
+    @CsvFileSource(resources = "/newUserCredentials.csv", numLinesToSkip = 1, delimiter = ';')
+    public void registerWithExistingCredentials(String description,String fullName,  String email, String age, String password) {
+        registrationPage.openRegistrationForm();
+        email =  Util.generateRandomString() + "@byte.me";
+        registrationPage.fillOutForm(fullName, email, age, password);
+        registrationPage.submitRegistration();
+        registrationPage.openRegistrationForm();
+        registrationPage.fillOutForm(fullName, email, age, password);
+        registrationPage.submitRegistration();
+        loginPage.login(email, password);
+        feedPage.openProfilePage();
+        assertEquals(fullName, profilePage.getFullName());
+    }
 
 }
