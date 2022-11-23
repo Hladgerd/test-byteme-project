@@ -18,7 +18,6 @@ public class TestRegistration {
     private LoginPage loginPage;
     private FeedPage feedPage;
     private ProfilePage profilePage;
-
     private RegistrationPage registrationPage;
 
     private boolean shouldLogOut;
