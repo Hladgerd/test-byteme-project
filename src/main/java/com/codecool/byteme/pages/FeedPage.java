@@ -4,8 +4,6 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-import java.util.List;
-
 public class FeedPage extends BasePage {
     ProfilePage profilePage = new ProfilePage();
 
@@ -56,10 +54,10 @@ public class FeedPage extends BasePage {
         fillBody(body);
         savePost();
     }
-    public String getNewPostTitle(){
+    public String getLatestPostTitle(){
         return webDriver.findElement(By.className("post-title")).getText();
     }
-    public String getNewPostBody(){
+    public String getLatestPostBody(){
         return webDriver.findElement(By.className("post-body")).getText();
     }
     public void deleteNewPost(){
