@@ -2,6 +2,7 @@ package com.codecool.byteme.pages;
 
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class RegistrationPage extends BasePage {
 
@@ -28,6 +29,25 @@ public class RegistrationPage extends BasePage {
         registerPassword.sendKeys(password);
     }
 
-    public void submitRegistration() { registerButton.click(); }
+    public void fillOutForm_(String fullName) {
+        registerName.sendKeys(fullName);
+    }
+
+    public String getCurrentUrl() {
+        return webDriver.getCurrentUrl();
+    }
+
+    public void submitRegistration() {
+        registerButton.click();
+    }
+
+    public String getRegistrationUrl() {
+        return baseUrl + "registration";
+    }
+
+    public void openRegistrationForm() {
+        webDriver.get(baseUrl + "registration");
+        wait.until(ExpectedConditions.visibilityOf(registerName));
+    }
 
 }
