@@ -21,22 +21,22 @@ public class LoginSteps {
     public void init(){
         loginPage = new LoginPage();
         feedPage = new FeedPage();
+        profilePage = new ProfilePage();
     }
 
     @Given("The user is on Byte.me login page")
     public void openLogin() {
-        profilePage = new ProfilePage();
         loginPage.openLoginPage();
     }
 
-    @When("enters {string} and clicks the Login button")
-    public void login(String email) {
-        loginPage.login(email);
+    @When("enters {string}, {string} and clicks the Login button")
+    public void login(String email, String password) {
+        loginPage.login(email, password);
     }
 
     @When("doesn't fill up credentials, just clicks the Login button")
     public void clickLoginButton() {
-        loginPage.login("");
+        loginPage.login("", "");
     }
 
     @Then("logout button is visible")
