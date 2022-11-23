@@ -37,8 +37,8 @@ public class TestPost {
         String body = Util.generateRandomString();
         feedPage.createNewPost(title, body);
 
-        assertEquals(title,feedPage.getLatestPostTitle());
-        assertEquals(body,feedPage.getLatestPostBody());
+        assertEquals(title,feedPage.getNewlyCreatedPostTitle(title));
+        assertEquals(body,feedPage.getNewlyCreatedPostBody(body));
     }
 
     @Test

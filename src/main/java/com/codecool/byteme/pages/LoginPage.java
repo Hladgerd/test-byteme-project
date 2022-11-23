@@ -33,7 +33,9 @@ public class LoginPage extends BasePage {
         webDriver.get(baseUrl);
         wait.until(ExpectedConditions.visibilityOf(userEmail));
         String email = Util.readProperty("email");
+        String password = "pass"; //TODO: read from prop file
         this.userEmail.sendKeys(email);
+        this.userPassword.sendKeys(password);
         this.loginButton.click();
     }
 

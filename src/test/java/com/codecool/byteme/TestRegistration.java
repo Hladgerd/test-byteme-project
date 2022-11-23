@@ -47,6 +47,7 @@ public class TestRegistration {
         registrationPage.submitRegistration();
         loginPage.login(email, password);
         feedPage.openProfilePage();
+
         assertEquals(fullName, profilePage.getFullName());
     }
 

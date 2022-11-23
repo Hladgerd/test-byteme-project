@@ -59,7 +59,7 @@ public class TestLogin {
     @EmptySource
     public void loginWithEmptyCredentials(String email) {
         loginPage.login(email, "" ); // TODO: add password
-        assertEquals("No email given", loginPage.getAlertMessage());
+        assertEquals("No email or password given!", loginPage.getAlertMessage());
     }
 
 

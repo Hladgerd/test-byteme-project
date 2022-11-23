@@ -3,6 +3,7 @@ package com.codecool.byteme;
 import com.codecool.byteme.pages.FeedPage;
 import com.codecool.byteme.pages.LoginPage;
 import com.codecool.byteme.pages.ProfilePage;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -26,6 +27,10 @@ public class TestSearch {
         loginPage.successfulLogin();
     }
 
+    @AfterEach
+    void close(){
+        loginPage.closeWebDriver();
+    }
 
     @ParameterizedTest
     @DisplayName("Search user")

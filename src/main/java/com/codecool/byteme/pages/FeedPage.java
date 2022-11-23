@@ -10,10 +10,10 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 public class FeedPage extends BasePage {
     ProfilePage profilePage = new ProfilePage();
 
-    @FindBy(xpath = "//*[@id=\"root\"]/div/div[1]/nav/div[3]/a")
+    @FindBy(id = "logout")
     WebElement logoutButton;
 
-    @FindBy(xpath = "//*[@id=\"navbarSupportedContent\"]/ul/li[1]/a")
+    @FindBy(id = "user-page")
     WebElement profilePageLink;
 
     @FindBy(xpath = "//*[@id=\"root\"]/div/div[2]/div[1]/form/div[1]/input")
@@ -68,11 +68,23 @@ public class FeedPage extends BasePage {
         savePost();
     }
 
+    public String getNewlyCreatedPostTitle(String title) {
+        WebElement titleElement = webDriver.findElement(By.className("post-title"));
+        wait.until(ExpectedConditions.textToBePresentInElement(titleElement,title));
+        return titleElement.getText();
+    }
+
     public String getLatestPostTitle() {
         return webDriver.findElement(By.className("post-title")).getText();
     }
 
-    public String getLatestPostBody() {
+    public String getNewlyCreatedPostBody(String body) {
+        WebElement bodyElement = webDriver.findElement(By.className("post-body"));
+        wait.until(ExpectedConditions.textToBePresentInElement(bodyElement, body));
+        return bodyElement.getText();
+    }
+
+    public String getLatestPostBody(){
         return webDriver.findElement(By.className("post-body")).getText();
     }
 
