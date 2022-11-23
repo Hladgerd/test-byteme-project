@@ -3,6 +3,7 @@ package com.codecool.byteme;
 import com.codecool.byteme.pages.FeedPage;
 import com.codecool.byteme.pages.LoginPage;
 import io.cucumber.java.After;
+import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -13,10 +14,14 @@ public class LogoutSteps {
     private LoginPage loginPage;
     private FeedPage feedPage;
 
-    @Given("The user is logged in to Byte.me")
-    public void openLogin() {
+    @Before
+    public void init(){
         loginPage = new LoginPage();
         feedPage = new FeedPage();
+    }
+
+    @Given("The user is logged in to Byte.me")
+    public void openLogin() {
         loginPage.openLoginPage();
         loginPage.login();
     }
@@ -32,8 +37,8 @@ public class LogoutSteps {
         assertTrue(loginPage.isLoginButtonVisible());
     }
 
-//    @After
-//    public void close() {
-//        loginPage.closeWebDriver();
-//    }
+    @After
+    public void close() {
+        loginPage.closeWebDriver();
+    }
 }

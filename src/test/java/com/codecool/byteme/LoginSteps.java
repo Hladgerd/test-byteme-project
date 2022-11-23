@@ -4,6 +4,7 @@ import com.codecool.byteme.pages.FeedPage;
 import com.codecool.byteme.pages.LoginPage;
 import com.codecool.byteme.pages.ProfilePage;
 import io.cucumber.java.After;
+import io.cucumber.java.Before;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -16,10 +17,14 @@ public class LoginSteps {
     private FeedPage feedPage;
     private ProfilePage profilePage;
 
-    @Given("The user is on Byte.me login page")
-    public void openLogin() {
+    @Before
+    public void init(){
         loginPage = new LoginPage();
         feedPage = new FeedPage();
+    }
+
+    @Given("The user is on Byte.me login page")
+    public void openLogin() {
         profilePage = new ProfilePage();
         loginPage.openLoginPage();
     }
