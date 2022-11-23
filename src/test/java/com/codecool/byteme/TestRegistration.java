@@ -20,8 +20,6 @@ public class TestRegistration {
     private ProfilePage profilePage;
     private RegistrationPage registrationPage;
 
-    private boolean shouldLogOut;
-
     @BeforeEach
     void init() {
         loginPage = new LoginPage();
@@ -47,14 +45,13 @@ public class TestRegistration {
         assertEquals(fullName, profilePage.getFullName());
     }
 
-
     @ParameterizedTest
-    @DisplayName("Try to register with empty credentials")
+    @DisplayName("Register user with empty credentials")
     @EmptySource
-    public void registerWithEmptyCredentials(String fullName) {
+    public void registerWithEmptyCredentials(String emptyText) {
         loginPage.openRegistrationForm();
-        registrationPage.fillOutName(fullName);
-        registrationPage.submitRegistration();
+        registrationPage.registerUser(emptyText, emptyText, emptyText, emptyText);
+
         assertEquals(registrationPage.getRegistrationUrl(), registrationPage.getCurrentUrl());
     }
 
@@ -66,6 +63,7 @@ public class TestRegistration {
         registrationPage.registerUser(fullName, email, age, password);
         registrationPage.registerUser(fullName, email, age, password);
         String actualMessage = "This email is already assigned to one of our users, please register with an other email address!";
+
         assertEquals(actualMessage, loginPage.getAlertMessage());
     }
 
