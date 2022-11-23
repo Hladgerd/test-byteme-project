@@ -7,51 +7,49 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 public class TestPost {
     LoginPage loginPage;
     FeedPage feedPage;
-    boolean isdeletable;
+    boolean shouldBeDeleted;
 
     @BeforeEach
     void init() {
         loginPage = new LoginPage();
         feedPage = new FeedPage();
         loginPage.login();
-        isdeletable = false;
+        shouldBeDeleted = false;
     }
 
     @AfterEach
     void close() {
-        if(isdeletable) feedPage.deleteNewPost();
+        if (shouldBeDeleted) feedPage.deleteNewPost();
         loginPage.closeWebDriver();
     }
 
     @Test
     @DisplayName("Add post successfully")
-    public void addPostSuccessfully(){
-        isdeletable = true;
+    public void addPostSuccessfully() {
+        shouldBeDeleted = true;
         String title = Util.generateRandomString();
         String body = Util.generateRandomString();
         feedPage.createNewPost(title, body);
 
-        assertEquals(title,feedPage.getNewlyCreatedPostTitle(title));
-        assertEquals(body,feedPage.getNewlyCreatedPostBody(body));
+        assertEquals(title, feedPage.getNewlyCreatedPostTitle(title));
+        assertEquals(body, feedPage.getNewlyCreatedPostBody(body));
     }
 
     @Test
     @DisplayName("Delete Post successfully")
-    public void deletePostSuccessfully(){
+    public void deletePostSuccessfully() {
         String title = Util.generateRandomString();
         String body = Util.generateRandomString();
         feedPage.createNewPost(title, body);
         feedPage.deleteNewPost();
 
-        assertNotEquals(title,feedPage.getLatestPostTitle());
-        assertNotEquals(body,feedPage.getLatestPostBody());
+        assertNotEquals(title, feedPage.getLatestPostTitle());
+        assertNotEquals(body, feedPage.getLatestPostBody());
     }
-
-
 }
