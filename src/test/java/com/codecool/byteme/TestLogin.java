@@ -18,28 +18,23 @@ public class TestLogin {
     private FeedPage feedPage;
     private ProfilePage profilePage;
 
-   private boolean shouldLogOut;
-
     @BeforeEach
     void init() {
         loginPage = new LoginPage();
         feedPage = new FeedPage();
         profilePage = new ProfilePage();
-        shouldLogOut = false;
     }
 
     @AfterEach
     void close() {
-        if (shouldLogOut) feedPage.logOutCurrentUser();
         loginPage.closeWebDriver();
     }
 
     @ParameterizedTest
     @DisplayName("Login registered user with correct credentials")
     @CsvFileSource(resources = "/userCredentials.csv", numLinesToSkip = 1, delimiter = ';')
-    public void loginSuccessfully(String description, String email, String fullName) {
-        shouldLogOut = true;
-        loginPage.login(email, "" ); // TODO: add password
+    public void loginSuccessfully(String description, String email, String password, String fullName) {
+        loginPage.login(email, password);
         assertTrue(feedPage.isLogoutButtonVisible());
 
         feedPage.openProfilePage();
@@ -49,26 +44,24 @@ public class TestLogin {
     @ParameterizedTest
     @DisplayName("Login registered user with wrong credentials")
     @CsvFileSource(resources = "/userCredentialsWrong.csv", numLinesToSkip = 1, delimiter = ';')
-    public void loginWithWrongCredentials(String description, String email) {
-        loginPage.login(email, "" ); // TODO: add password
+    public void loginWithWrongCredentials(String description, String email, String password) {
+        loginPage.login(email, password);
         assertFalse(feedPage.isLogoutButtonVisible());
     }
 
     @ParameterizedTest
     @DisplayName("Login with empty credentials")
     @EmptySource
-    public void loginWithEmptyCredentials(String email) {
-        loginPage.login(email, "" ); // TODO: add password
+    public void loginWithEmptyCredentials(String emptyText) {
+        loginPage.login(emptyText, emptyText);
         assertEquals("No email or password given!", loginPage.getAlertMessage());
     }
 
-
     @ParameterizedTest
-    @DisplayName("Login non registered users")
+    @DisplayName("Login unregistered user")
     @ValueSource(strings = "noname@byte.me")
-    public void nonRegisteredUserlogin(String email) {
-        loginPage.login(email, "" ); // TODO: add password
+    public void loginUnregisteredUser(String email) {
+        loginPage.login(email, "pw");
         assertFalse(feedPage.isLogoutButtonVisible());
     }
-
 }
