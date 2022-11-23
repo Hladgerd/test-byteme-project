@@ -28,9 +28,6 @@ public class FeedPage extends BasePage {
     @FindBy(id = "search-text")
     WebElement searchField;
 
-
-
-
     public boolean isLogoutButtonVisible() {
         try {
             wait.until(ExpectedConditions.visibilityOf(logoutButton));
