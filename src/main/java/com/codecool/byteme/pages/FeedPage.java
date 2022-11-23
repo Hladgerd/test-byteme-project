@@ -1,6 +1,9 @@
 package com.codecool.byteme.pages;
 
-import org.openqa.selenium.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.TimeoutException;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
@@ -22,6 +25,12 @@ public class FeedPage extends BasePage {
     @FindBy(xpath = "//*[@id=\"root\"]/div/div[2]/div[1]/form/button")
     WebElement postButton;
 
+    @FindBy(id = "search-text")
+    WebElement searchField;
+
+
+
+
     public boolean isLogoutButtonVisible() {
         try {
             wait.until(ExpectedConditions.visibilityOf(logoutButton));
@@ -31,7 +40,7 @@ public class FeedPage extends BasePage {
         }
     }
 
-    public void openProfilePage(){
+    public void openProfilePage() {
         profilePageLink.click();
         wait.until(ExpectedConditions.visibilityOf(profilePage.fullName));
     }
@@ -43,24 +52,38 @@ public class FeedPage extends BasePage {
     public void fillTitle(String title) {
         postTitle.sendKeys(title);
     }
+
     public void fillBody(String body) {
         postBody.sendKeys(body);
     }
+
     public void savePost() {
         postButton.click();
     }
-    public void createNewPost(String title, String body){
+
+    public void createNewPost(String title, String body) {
         fillTitle(title);
         fillBody(body);
         savePost();
     }
-    public String getLatestPostTitle(){
+
+    public String getLatestPostTitle() {
         return webDriver.findElement(By.className("post-title")).getText();
     }
-    public String getLatestPostBody(){
+
+    public String getLatestPostBody() {
         return webDriver.findElement(By.className("post-body")).getText();
     }
-    public void deleteNewPost(){
+
+    public void deleteNewPost() {
         webDriver.findElement(By.className("delete-icon")).click();
+    }
+
+    public void addNameToSearchField(String name) {
+        searchField.sendKeys(name);
+    }
+
+    public void selectTheFirstResult() {
+        webDriver.findElement(By.className("searchbar-results-item")).click();
     }
 }
