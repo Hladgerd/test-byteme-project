@@ -15,7 +15,6 @@ public class TestSearch {
 
     LoginPage loginPage;
     FeedPage feedPage;
-
     ProfilePage profilePage;
 
 
