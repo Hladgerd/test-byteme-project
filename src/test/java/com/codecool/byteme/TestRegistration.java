@@ -39,9 +39,10 @@ public class TestRegistration {
     @ParameterizedTest
     @DisplayName("Register user with correct credentials")
     @CsvFileSource(resources = "/newUserCredentials.csv", numLinesToSkip = 1, delimiter = ';')
-    public void registerSuccessfully(String description,String fullName,  String email, String age, String password){
+    public void registerSuccessfully(String description,String fullName, String age, String password){
         loginPage.reOpenLoginPage();
         loginPage.openRegistrationForm();
+        String email =  Util.generateRandomString() + "@byte.me";
         registrationPage.fillOutForm(fullName, email, age, password);
         registrationPage.submitRegistration();
         loginPage.login(email, password);
