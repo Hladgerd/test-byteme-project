@@ -9,6 +9,10 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class LoginPage extends BasePage {
+    private final String loginUrl = baseUrl + "login";
+    private final String registrationUrl = baseUrl + "registration";
+    private final String userProfileUrl = baseUrl + "user/2";
+
     @FindBy(id = "email-input-login")
     WebElement userEmail;
 
@@ -19,18 +23,18 @@ public class LoginPage extends BasePage {
     WebElement loginButton;
 
     public void login(String email, String password) {
-        webDriver.get(baseUrl + "login");
+        webDriver.get(loginUrl);
         wait.until(ExpectedConditions.visibilityOf(userEmail));
         this.userEmail.sendKeys(email);
         this.userPassword.sendKeys("Pass"); // TODO: use parameter
         this.loginButton.submit();
     }
 
-    public void successfulLogin() {
-        webDriver.get(baseUrl);
-        wait.until(ExpectedConditions.visibilityOf(userEmail));
+    public void login() {
         String email = Util.readProperty("email");
-        String password = "pass"; //TODO: read from prop file
+        String password = Util.readProperty("password");
+        webDriver.get(loginUrl);
+        wait.until(ExpectedConditions.visibilityOf(userEmail));
         this.userEmail.sendKeys(email);
         this.userPassword.sendKeys(password);
         this.loginButton.click();
@@ -52,10 +56,10 @@ public class LoginPage extends BasePage {
     }
 
     public void openRegistrationForm() {
-        webDriver.get(baseUrl + "registration");
+        webDriver.get(registrationUrl);
     }
 
     public void navigateToProfilePage() {
-        webDriver.get(baseUrl + "user/2");
+        webDriver.get(userProfileUrl);
     }
 }
