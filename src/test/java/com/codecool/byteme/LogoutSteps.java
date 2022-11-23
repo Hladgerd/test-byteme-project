@@ -21,7 +21,7 @@ public class LogoutSteps {
     }
 
     @Given("The user is logged in to Byte.me")
-    public void openLogin() {
+    public void login() {
         loginPage.openLoginPage();
         loginPage.login();
     }
