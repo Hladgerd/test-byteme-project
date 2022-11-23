@@ -1,7 +1,10 @@
 package com.codecool.byteme.pages;
 
 import com.codecool.byteme.Util;
-import org.openqa.selenium.*;
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.TimeoutException;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
@@ -19,9 +22,7 @@ public class LoginPage extends BasePage {
     WebElement registrationButton;
 
 
-
-
-    public void login(String email, String password){
+    public void login(String email, String password) {
         webDriver.get(baseUrl + "login");
         wait.until(ExpectedConditions.visibilityOf(userEmail));
         this.userEmail.sendKeys(email);
@@ -29,7 +30,7 @@ public class LoginPage extends BasePage {
         this.loginButton.click();
     }
 
-    public void successfulLogin(){
+    public void successfulLogin() {
         webDriver.get(baseUrl);
         wait.until(ExpectedConditions.visibilityOf(userEmail));
         String email = Util.readProperty("email");
