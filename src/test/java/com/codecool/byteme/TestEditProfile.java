@@ -10,7 +10,6 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestEditProfile {
     LoginPage loginPage;
@@ -32,24 +31,23 @@ public class TestEditProfile {
 
     @ParameterizedTest
     @DisplayName("Edit Name")
-    @ValueSource(strings = "oneZ scengreF")
-    public void editName(String name){
+    @ValueSource(strings = "New name")
+    public void editName(String name) {
         feedPage.openProfilePage();
         profilePage.openEditPanel();
         profilePage.editName(name);
         profilePage.saveChanges();
-        assertEquals(name,profilePage.getFullName());
+        assertEquals(name, profilePage.getFullName());
     }
 
     @ParameterizedTest
     @DisplayName("Edit Age")
     @ValueSource(strings = "130")
-    public void editAge(String age){
+    public void editAge(String age) {
         feedPage.openProfilePage();
         profilePage.openEditPanel();
         profilePage.editAge(age);
         profilePage.saveChanges();
-        assertEquals(age,profilePage.getAge());
+        assertEquals(age, profilePage.getAge());
     }
-
 }
