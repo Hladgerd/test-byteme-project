@@ -5,6 +5,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class RegistrationPage extends BasePage {
+    private LoginPage loginPage = new LoginPage();
 
     @FindBy(id = "name-input-registration")
     WebElement registerName;
@@ -21,7 +22,6 @@ public class RegistrationPage extends BasePage {
     @FindBy(id = "registration-button")
     WebElement registerButton;
 
-
     public void fillOutForm(String fullName, String email, String age, String password) {
         registerName.sendKeys(fullName);
         registerEmail.sendKeys(email);
@@ -29,25 +29,29 @@ public class RegistrationPage extends BasePage {
         registerPassword.sendKeys(password);
     }
 
-    public void fillOutForm_(String fullName) {
+    public void fillOutName(String fullName) {
         registerName.sendKeys(fullName);
-    }
-
-    public String getCurrentUrl() {
-        return webDriver.getCurrentUrl();
     }
 
     public void submitRegistration() {
         registerButton.click();
     }
 
+    public void registerUser(String fullName, String email, String age, String password){
+        loginPage.openRegistrationForm();
+        wait.until(ExpectedConditions.visibilityOf(registerName));
+        fillOutForm(fullName, email, age, password);
+        submitRegistration();
+    }
+
     public String getRegistrationUrl() {
         return baseUrl + "registration";
     }
 
-    public void openRegistrationForm() {
-        webDriver.get(baseUrl + "registration");
-        wait.until(ExpectedConditions.visibilityOf(registerName));
+    public String getCurrentUrl() {
+        return webDriver.getCurrentUrl();
     }
+
+
 
 }
