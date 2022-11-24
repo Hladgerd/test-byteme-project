@@ -44,6 +44,7 @@ public class FeedPage extends BasePage {
     }
 
     public void logOutCurrentUser() {
+        wait.until(ExpectedConditions.elementToBeClickable(logoutButton));
         logoutButton.click();
     }
 
