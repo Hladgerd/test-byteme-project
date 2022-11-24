@@ -3,6 +3,7 @@ package com.codecool.byteme;
 import com.codecool.byteme.pages.FeedPage;
 import com.codecool.byteme.pages.LoginPage;
 import com.codecool.byteme.pages.ProfilePage;
+import com.codecool.byteme.pages.RegistrationPage;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -19,12 +20,14 @@ public class TestLogin {
     private LoginPage loginPage;
     private FeedPage feedPage;
     private ProfilePage profilePage;
+    private RegistrationPage registrationPage;
 
     @BeforeEach
     void init() {
         loginPage = new LoginPage();
         feedPage = new FeedPage();
         profilePage = new ProfilePage();
+        registrationPage = new RegistrationPage();
     }
 
     @AfterEach
@@ -65,5 +68,25 @@ public class TestLogin {
     public void loginUnregisteredUser(String email) {
         loginPage.login(email, "pw");
         assertFalse(feedPage.isLogoutButtonVisible());
+    }
+
+    @ParameterizedTest
+    @DisplayName("login user with wrong password")
+    @CsvFileSource(resources = "/newUserCredentials.csv", numLinesToSkip = 1, delimiter = ';')
+    public void registeredUserLogInWithWrongPassword(String description, String fullName, String age, String password) {
+        String email = Util.generateRandomString() + "@byte.me";
+        registrationPage.registerUser(fullName, email, age, password);
+        loginPage.login(email, password + 'a');
+        assertEquals("http://localhost:3000/login", registrationPage.getCurrentUrl());
+    }
+
+    @ParameterizedTest
+    @DisplayName("login user with wrong email")
+    @CsvFileSource(resources = "/newUserCredentials.csv", numLinesToSkip = 1, delimiter = ';')
+    public void registeredUserLogInWithWrongEmail(String description, String fullName, String age, String password) {
+        String email = Util.generateRandomString() + "@byte.me";
+        registrationPage.registerUser(fullName, email, age, password);
+        loginPage.login(email + "a", password);
+        assertEquals("http://localhost:3000/login", registrationPage.getCurrentUrl());
     }
 }
