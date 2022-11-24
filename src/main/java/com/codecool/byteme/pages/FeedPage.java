@@ -48,22 +48,12 @@ public class FeedPage extends BasePage {
         logoutButton.click();
     }
 
-    public void fillTitle(String title) {
-        postTitle.sendKeys(title);
-    }
-
-    public void fillBody(String body) {
-        postBody.sendKeys(body);
-    }
-
-    public void savePost() {
-        postButton.click();
-    }
-
     public void createNewPost(String title, String body) {
-        fillTitle(title);
-        fillBody(body);
-        savePost();
+        int numberOfPosts = (webDriver.findElements(By.className("post-card"))).size();
+        postTitle.sendKeys(title);
+        postBody.sendKeys(body);
+        postButton.click();
+        wait.until(ExpectedConditions.numberOfElementsToBeMoreThan(By.className("post-card"), numberOfPosts));
     }
 
     public String getNewlyCreatedPostTitle(String title) {
@@ -87,7 +77,9 @@ public class FeedPage extends BasePage {
     }
 
     public void deleteNewPost() {
+        int numberOfPosts = (webDriver.findElements(By.className("post-card"))).size();
         webDriver.findElement(By.className("delete-icon")).click();
+        wait.until(ExpectedConditions.numberOfElementsToBeLessThan(By.className("post-card"), numberOfPosts));
     }
 
     public void searchFor(String name) {
