@@ -43,7 +43,7 @@ public class TestRegistration {
         String email = Util.generateRandomString() + "@byte.me";
         registrationPage.registerUser(fullName, email, age, password);
         loginPage.login(email, password);
-        assertEquals("http://localhost:3000/login", registrationPage.getCurrentUrl());
+        assertTrue(feedPage.isLogoutButtonVisible());
     }
 
     @ParameterizedTest
@@ -52,7 +52,6 @@ public class TestRegistration {
     public void registerWithEmptyCredentials(String emptyText) {
         loginPage.openRegistrationForm();
         registrationPage.registerUser(emptyText, emptyText, emptyText, emptyText);
-
         assertEquals(registrationPage.getRegistrationUrl(), registrationPage.getCurrentUrl());
     }
 
@@ -64,10 +63,8 @@ public class TestRegistration {
         registrationPage.registerUser(fullName, email, age, password);
         registrationPage.registerUser(fullName, email, age, password);
         String actualMessage = "This email is already assigned to one of our users, please register with an other email address!";
-
         assertEquals(actualMessage, loginPage.getAlertMessage());
     }
-
 
     @ParameterizedTest
     @DisplayName("Register user with age in non-integer format")
@@ -77,7 +74,6 @@ public class TestRegistration {
         String nonIntegerAge = "age";
         registrationPage.registerUser(fullName, email, nonIntegerAge, password);
         loginPage.login(email, password);
-
         assertTrue(feedPage.isLogoutButtonVisible());
     }
 }
