@@ -60,6 +60,8 @@ public class FeedPage extends BasePage {
     }
 
     private WebElement findNewTitle(String title) {
+    public String getNewlyCreatedPostTitle(String title) {
+        wait.until(ExpectedConditions.textToBePresentInElement(webDriver.findElement(By.className("post-title")), title));
         WebElement titleElement = webDriver.findElement(By.className("post-title"));
         wait.until(ExpectedConditions.textToBePresentInElement(titleElement, title));
         return titleElement;
@@ -73,6 +75,7 @@ public class FeedPage extends BasePage {
 
     public String getNewlyCreatedPostTitle(String title) {
         return findNewTitle(title).getText();
+        return titleElement.getText();
     }
 
     public String getLatestPostTitle() {
