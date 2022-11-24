@@ -54,12 +54,14 @@ public class PostSteps {
     public void post() {
         uniqueTitle = Util.generateRandomString();
         uniqueBody = Util.generateRandomString();
+        loginPage.login();
         feedPage.createNewPost(uniqueTitle, uniqueBody);
     }
 
     @When("user deletes the new post")
     public void deletePost() {
-        feedPage.deleteNewPost(uniqueTitle);
+        feedPage.deleteNewPost();
+        shouldBeDeleted = false;
     }
 
     @Then("the created post title is different from last post's title")
@@ -74,7 +76,7 @@ public class PostSteps {
 
     @After
     public void close() {
-        if(shouldBeDeleted) feedPage.deleteNewPost(uniqueTitle);
+        if(shouldBeDeleted) feedPage.deleteNewPost();
         loginPage.closeWebDriver();
     }
 }
