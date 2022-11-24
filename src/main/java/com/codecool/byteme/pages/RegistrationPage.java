@@ -30,16 +30,11 @@ public class RegistrationPage extends BasePage {
         registerPassword.sendKeys(password);
     }
 
-    public void fillOutName(String fullName) {
-        registerName.sendKeys(fullName);
-    }
-
     public void submitRegistration() {
         registerButton.click();
     }
 
     public void registerUser(String fullName, String email, String age, String password){
-        loginPage.openRegistrationForm();
         wait.until(ExpectedConditions.visibilityOf(registerName));
         fillOutForm(fullName, email, age, password);
         submitRegistration();
