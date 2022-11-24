@@ -52,6 +52,32 @@ public class RegistrationSteps {
         assertEquals(fullName, profilePage.getFullName());
     }
 
+    @When("do not fills up fields and submits registration")
+    public void submit() {
+        registrationPage.submitRegistration();
+    }
+
+    @Then("user remains on Registration page")
+    public void checkPageUrl() {
+        assertEquals(registrationPage.getRegistrationUrl(), registrationPage.getCurrentUrl());
+    }
+
+    @And("opens Registration page again")
+    public void reopenRegistration() {
+        loginPage.openRegistrationForm();
+    }
+
+    @And("fills up same {string}, email, {string}, {string} and submits registration")
+    public void registerAgain(String fullName, String age, String password) {
+        registrationPage.registerUser(fullName, email, age, password);
+    }
+
+    @Then("receives error message")
+    public void checkRegistrationError() {
+        String actualMessage = "This email is already assigned to one of our users, please register with an other email address!";
+        assertEquals(actualMessage, loginPage.getAlertMessage());
+    }
+
     @After
     public void close() {
         loginPage.closeWebDriver();
