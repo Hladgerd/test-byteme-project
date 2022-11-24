@@ -30,7 +30,6 @@ public class TestLogOut {
     @DisplayName("Logout successfully")
     public void logOutSuccessfully() throws InterruptedException {
         loginPage.login();
-        Thread.sleep(5000);
         feedPage.logOutCurrentUser();
         loginPage.navigateToProfilePage();
         assertTrue(loginPage.isLoginButtonVisible());
