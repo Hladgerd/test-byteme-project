@@ -23,26 +23,18 @@ public class RegistrationPage extends BasePage {
     @FindBy(id = "registration-button")
     WebElement registerButton;
 
-    public void fillOutForm(String fullName, String email, String age, String password) {
+    private void fillOutForm(String fullName, String email, String age, String password) {
         registerName.sendKeys(fullName);
         registerEmail.sendKeys(email);
         registerAge.sendKeys(age);
         registerPassword.sendKeys(password);
     }
 
-    public void fillOutName(String fullName) {
-        registerName.sendKeys(fullName);
-    }
-
-    public void submitRegistration() {
-        registerButton.click();
-    }
-
-    public void registerUser(String fullName, String email, String age, String password){
+    public void registerUser(String fullName, String email, String age, String password) {
         loginPage.openRegistrationForm();
         wait.until(ExpectedConditions.visibilityOf(registerName));
         fillOutForm(fullName, email, age, password);
-        submitRegistration();
+        registerButton.click();
     }
 
     public String getRegistrationUrl() {
