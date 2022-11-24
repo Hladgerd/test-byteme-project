@@ -2,6 +2,7 @@ package com.codecool.byteme.pages;
 
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class ProfilePage extends BasePage {
     @FindBy(xpath = "//*[@id=\"root\"]/div/div[2]/div[1]/div[2]/div[1]/div[1]")
@@ -35,6 +36,7 @@ public class ProfilePage extends BasePage {
 
     public void openEditPanel() {
         editButton.click();
+        wait.until(ExpectedConditions.visibilityOf(panelNameEditButton));
     }
 
     public void editName(String name) {
