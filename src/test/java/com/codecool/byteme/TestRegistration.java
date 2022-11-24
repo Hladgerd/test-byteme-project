@@ -7,12 +7,14 @@ import com.codecool.byteme.pages.RegistrationPage;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
 import org.junit.jupiter.params.provider.EmptySource;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@ExtendWith(TestResultLoggerExtension.class)
 public class TestRegistration {
 
     private LoginPage loginPage;
