@@ -57,7 +57,8 @@ public class LoginSteps {
 
     @Then("alert message received")
     public void getAlert() {
-        assertEquals("No email given", loginPage.getAlertMessage());
+        String actualMessage = "No email or password given!";
+        assertEquals(actualMessage, loginPage.getAlertMessage());
     }
 
     @After
