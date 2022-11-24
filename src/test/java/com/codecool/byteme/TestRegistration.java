@@ -20,14 +20,12 @@ public class TestRegistration {
 
     private LoginPage loginPage;
     private FeedPage feedPage;
-    private ProfilePage profilePage;
     private RegistrationPage registrationPage;
 
     @BeforeEach
     void init() {
         loginPage = new LoginPage();
         feedPage = new FeedPage();
-        profilePage = new ProfilePage();
         registrationPage = new RegistrationPage();
     }
 
