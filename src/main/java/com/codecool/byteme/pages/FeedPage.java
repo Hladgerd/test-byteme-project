@@ -85,8 +85,7 @@ public class FeedPage extends BasePage {
         return webDriver.findElement(By.className("post-body")).getText();
     }
 
-    public void deleteNewPost(String title) {
-//        findNewTitle(title);
+    public void deleteNewPost() {
         webDriver.findElement(By.className("delete-icon")).click();
     }
 
