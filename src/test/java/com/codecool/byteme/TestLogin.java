@@ -37,8 +37,10 @@ public class TestLogin {
 
     @ParameterizedTest
     @DisplayName("Login registered user with correct credentials")
-    @CsvFileSource(resources = "/userCredentials.csv", numLinesToSkip = 1, delimiter = ';')
-    public void loginSuccessfully(String description, String email, String password, String fullName) {
+    @CsvFileSource(resources = "/newUserCredentials.csv", numLinesToSkip = 1, delimiter = ';')
+    public void loginSuccessfully(String description, String fullName, String age, String password) {
+        String email = Util.generateRandomString() + "@byte.me";
+        registrationPage.registerUser(fullName, email, age, password);
         loginPage.login(email, password);
         assertTrue(feedPage.isLogoutButtonVisible());
 
@@ -46,16 +48,38 @@ public class TestLogin {
         assertEquals(fullName, profilePage.getFullName());
     }
 
+//    @ParameterizedTest
+//    @DisplayName("Login registered user with wrong credentials")
+//    @CsvFileSource(resources = "/userCredentialsWrong.csv", numLinesToSkip = 1, delimiter = ';')
+//    public void loginWithWrongCredentials(String description, String email, String password) {
+//        loginPage.login(email, password);
+//        assertFalse(feedPage.isLogoutButtonVisible());
+//    }
+
+
+
     @ParameterizedTest
-    @DisplayName("Login registered user with wrong credentials")
-    @CsvFileSource(resources = "/userCredentialsWrong.csv", numLinesToSkip = 1, delimiter = ';')
-    public void loginWithWrongCredentials(String description, String email, String password) {
-        loginPage.login(email, password);
+    @DisplayName("login registered user with wrong email")
+    @CsvFileSource(resources = "/newUserCredentials.csv", numLinesToSkip = 1, delimiter = ';')
+    public void registeredUserLogInWithWrongEmail(String description, String fullName, String age, String password) {
+        String email = Util.generateRandomString() + "@byte.me";
+        registrationPage.registerUser(fullName, email, age, password);
+        loginPage.login(email + "a", password);
         assertFalse(feedPage.isLogoutButtonVisible());
     }
 
     @ParameterizedTest
-    @DisplayName("Login with empty credentials")
+    @DisplayName("login registered user with wrong password")
+    @CsvFileSource(resources = "/newUserCredentials.csv", numLinesToSkip = 1, delimiter = ';')
+    public void registeredUserLogInWithWrongPassword(String description, String fullName, String age, String password) {
+        String email = Util.generateRandomString() + "@byte.me";
+        registrationPage.registerUser(fullName, email, age, password);
+        loginPage.login(email, password + 'a');
+        assertFalse(feedPage.isLogoutButtonVisible());
+    }
+
+    @ParameterizedTest
+    @DisplayName("Login user with empty credentials")
     @EmptySource
     public void loginWithEmptyCredentials(String emptyText) {
         loginPage.login(emptyText, emptyText);
@@ -68,25 +92,5 @@ public class TestLogin {
     public void loginUnregisteredUser(String email) {
         loginPage.login(email, "pw");
         assertFalse(feedPage.isLogoutButtonVisible());
-    }
-
-    @ParameterizedTest
-    @DisplayName("login user with wrong password")
-    @CsvFileSource(resources = "/newUserCredentials.csv", numLinesToSkip = 1, delimiter = ';')
-    public void registeredUserLogInWithWrongPassword(String description, String fullName, String age, String password) {
-        String email = Util.generateRandomString() + "@byte.me";
-        registrationPage.registerUser(fullName, email, age, password);
-        loginPage.login(email, password + 'a');
-        assertEquals("http://localhost:3000/login", registrationPage.getCurrentUrl());
-    }
-
-    @ParameterizedTest
-    @DisplayName("login user with wrong email")
-    @CsvFileSource(resources = "/newUserCredentials.csv", numLinesToSkip = 1, delimiter = ';')
-    public void registeredUserLogInWithWrongEmail(String description, String fullName, String age, String password) {
-        String email = Util.generateRandomString() + "@byte.me";
-        registrationPage.registerUser(fullName, email, age, password);
-        loginPage.login(email + "a", password);
-        assertEquals("http://localhost:3000/login", registrationPage.getCurrentUrl());
     }
 }
