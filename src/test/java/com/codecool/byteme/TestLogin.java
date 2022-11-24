@@ -48,16 +48,6 @@ public class TestLogin {
         assertEquals(fullName, profilePage.getFullName());
     }
 
-//    @ParameterizedTest
-//    @DisplayName("Login registered user with wrong credentials")
-//    @CsvFileSource(resources = "/userCredentialsWrong.csv", numLinesToSkip = 1, delimiter = ';')
-//    public void loginWithWrongCredentials(String description, String email, String password) {
-//        loginPage.login(email, password);
-//        assertFalse(feedPage.isLogoutButtonVisible());
-//    }
-
-
-
     @ParameterizedTest
     @DisplayName("login registered user with wrong email")
     @CsvFileSource(resources = "/newUserCredentials.csv", numLinesToSkip = 1, delimiter = ';')
