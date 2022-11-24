@@ -7,12 +7,14 @@ import com.codecool.byteme.pages.RegistrationPage;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
 import org.junit.jupiter.params.provider.EmptySource;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @ExtendWith(TestResultLoggerExtension.class)
 public class TestRegistration {
@@ -42,9 +44,7 @@ public class TestRegistration {
         String email = Util.generateRandomString() + "@byte.me";
         registrationPage.registerUser(fullName, email, age, password);
         loginPage.login(email, password);
-        feedPage.openProfilePage();
-
-        assertEquals(fullName, profilePage.getFullName());
+        assertEquals("http://localhost:3000/login", registrationPage.getCurrentUrl());
     }
 
     @ParameterizedTest
@@ -55,6 +55,27 @@ public class TestRegistration {
         registrationPage.registerUser(emptyText, emptyText, emptyText, emptyText);
 
         assertEquals(registrationPage.getRegistrationUrl(), registrationPage.getCurrentUrl());
+    }
+
+
+    @ParameterizedTest
+    @DisplayName("login user with wrong password")
+    @CsvFileSource(resources = "/newUserCredentials.csv", numLinesToSkip = 1, delimiter = ';')
+    public void registeredUserLogInWithWrongPassword(String description, String fullName, String age, String password) {
+        String email = Util.generateRandomString() + "@byte.me";
+        registrationPage.registerUser(fullName, email, age, password);
+        loginPage.login(email, password + 'a');
+        assertEquals("http://localhost:3000/login", registrationPage.getCurrentUrl());
+    }
+
+    @ParameterizedTest
+    @DisplayName("login user with wrong email")
+    @CsvFileSource(resources = "/newUserCredentials.csv", numLinesToSkip = 1, delimiter = ';')
+    public void registeredUserLogInWithWrongEmail(String description, String fullName, String age, String password) {
+        String email = Util.generateRandomString() + "@byte.me";
+        registrationPage.registerUser(fullName, email, age, password);
+        loginPage.login(email + "a", password);
+        assertEquals("http://localhost:3000/login", registrationPage.getCurrentUrl());
     }
 
     @ParameterizedTest
@@ -68,6 +89,7 @@ public class TestRegistration {
 
         assertEquals(actualMessage, loginPage.getAlertMessage());
     }
+
 
     @ParameterizedTest
     @DisplayName("Register user with age in non-integer format")
