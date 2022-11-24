@@ -23,7 +23,7 @@ public class RegistrationPage extends BasePage {
     @FindBy(id = "registration-button")
     WebElement registerButton;
 
-    public void fillOutForm(String fullName, String email, String age, String password) {
+    private void fillOutForm(String fullName, String email, String age, String password) {
         registerName.sendKeys(fullName);
         registerEmail.sendKeys(email);
         registerAge.sendKeys(age);
