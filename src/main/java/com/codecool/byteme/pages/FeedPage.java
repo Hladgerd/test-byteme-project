@@ -66,8 +66,8 @@ public class FeedPage extends BasePage {
     }
 
     public String getNewlyCreatedPostTitle(String title) {
+        wait.until(ExpectedConditions.textToBePresentInElement(webDriver.findElement(By.className("post-title")), title));
         WebElement titleElement = webDriver.findElement(By.className("post-title"));
-        wait.until(ExpectedConditions.textToBePresentInElement(titleElement, title));
         return titleElement.getText();
     }
 
