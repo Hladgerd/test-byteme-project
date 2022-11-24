@@ -19,7 +19,7 @@ public class RegistrationSteps {
     private RegistrationPage registrationPage;
     private FeedPage feedPage;
     private ProfilePage profilePage;
-    String email;
+    private String email;
 
     @Before
     public void init(){
