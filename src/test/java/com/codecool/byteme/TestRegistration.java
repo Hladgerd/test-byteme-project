@@ -45,7 +45,6 @@ public class TestRegistration {
         registrationPage.registerUser(fullName, email, age, password);
         loginPage.login(email, password);
         assertEquals("http://localhost:3000/login", registrationPage.getCurrentUrl());
-
     }
 
     @ParameterizedTest
