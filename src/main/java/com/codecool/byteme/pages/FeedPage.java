@@ -60,15 +60,13 @@ public class FeedPage extends BasePage {
     }
 
     private WebElement findNewTitle(String title) {
-        WebElement titleElement = webDriver.findElement(By.className("post-title"));
-        wait.until(ExpectedConditions.textToBePresentInElement(titleElement, title));
-        return titleElement;
+        wait.until(ExpectedConditions.textToBePresentInElement(webDriver.findElement(By.className("post-title")), title));
+        return webDriver.findElement(By.className("post-title"));
     }
 
     private WebElement findNewBody(String body) {
-        WebElement bodyElement = webDriver.findElement(By.className("post-body"));
-        wait.until(ExpectedConditions.textToBePresentInElement(bodyElement, body));
-        return bodyElement;
+        wait.until(ExpectedConditions.textToBePresentInElement(webDriver.findElement(By.className("post-body")), body));
+        return webDriver.findElement(By.className("post-body"));
     }
 
     public String getNewlyCreatedPostTitle(String title) {

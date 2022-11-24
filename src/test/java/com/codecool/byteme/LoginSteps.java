@@ -34,11 +34,6 @@ public class LoginSteps {
         loginPage.login(email, password);
     }
 
-    @When("doesn't fill up credentials, just clicks the Login button")
-    public void clickLoginButton() {
-        loginPage.login("", "");
-    }
-
     @Then("logout button is visible")
     public void logoutButtonIsVisible() {
         assertTrue(feedPage.isLogoutButtonVisible());
@@ -50,14 +45,19 @@ public class LoginSteps {
         assertEquals(fullname, profilePage.getFullName());
     }
 
-    @Then("alert message received")
-    public void getAlert() {
-        assertEquals("No email given", loginPage.getAlertMessage());
+    @When("doesn't fill up credentials, just clicks the Login button")
+    public void clickLoginButton() {
+        loginPage.login("", "");
     }
 
     @Then("feed page is not visible")
     public void feedPageIsNotVisible() {
         assertFalse(feedPage.isLogoutButtonVisible());
+    }
+
+    @Then("alert message received")
+    public void getAlert() {
+        assertEquals("No email given", loginPage.getAlertMessage());
     }
 
     @After

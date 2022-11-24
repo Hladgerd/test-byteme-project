@@ -23,12 +23,12 @@ public class PostSteps {
     public void init() {
         loginPage = new LoginPage();
         feedPage = new FeedPage();
-        loginPage.login();
         shouldBeDeleted = false;
     }
 
     @Given("the user is on Feed page")
     public void openFeedPage() {
+        loginPage.login();
         feedPage.openFeeds();
     }
 
