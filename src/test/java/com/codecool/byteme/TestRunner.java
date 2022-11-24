@@ -10,8 +10,9 @@ import static io.cucumber.junit.platform.engine.Constants.PLUGIN_PROPERTY_NAME;
 
 @Suite
 @IncludeEngines("cucumber")
-@SelectClasspathResource("/features")
+@SelectClasspathResource("features")
 @ConfigurationParameter(key = PLUGIN_PROPERTY_NAME, value = "pretty")
+@ConfigurationParameter(key = PLUGIN_PROPERTY_NAME, value = "html:test-byteme-project/src/test/resources/reports/report.html")
 @ConfigurationParameter(key = GLUE_PROPERTY_NAME, value = "com.codecool.byteme")
 public class TestRunner {
 }
